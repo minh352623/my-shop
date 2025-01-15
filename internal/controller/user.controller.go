@@ -2,7 +2,7 @@ package controller
 
 import (
 	"ecom/internal/service"
-	"net/http"
+	"ecom/pkg/response"
 
 	"github.com/gin-gonic/gin"
 )
@@ -19,8 +19,5 @@ func NewUserController() *UserController {
 
 func (uc *UserController) GetUser(ctx *gin.Context) {
 	id, name := uc.userService.GetUser(ctx.Param("id"))
-	ctx.JSON(http.StatusOK, gin.H{
-		"message": "pong",
-		"data":    gin.H{"id": id, "name": name},
-	})
+	response.SuccessResponse(ctx, response.Success, gin.H{"id": id, "name": name})
 }
